@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<property name="auto.increment" value="false" global="true" />
+
+	<property name="now" value="SYSDATETIME()" dbms="mssql" />
+	<property name="now" value="sysdate" dbms="oracle" />
+	<property name="now" value="now()" dbms="postgresql,h2" />
+
+	<property name="nextSequence" value="next value for hibernate_sequence"
+		dbms="mssql" />
+	<property name="nextSequence" value="hibernate_sequence.nextval"
+		dbms="oracle" />
+	<property name="nextSequence" value="hibernate_sequence.NEXTVAL"
+		dbms="h2" />
+
+	<changeSet author="parkers" dbms="mssql" id="mssqlReadCommit"
+		runAlways="true">
+		<preConditions onFail="WARN">
+			<sqlCheck expectedResult="0">SELECT
+				is_read_committed_snapshot_on FROM sys.databases WHERE
+				name='${utilisoft.dbname}';
+			</sqlCheck>
+		</preConditions>
+		<sql endDelimiter=";">
+			ALTER DATABASE ${utilisoft.dbname} SET
+			SINGLE_USER WITH ROLLBACK
+			IMMEDIATE;
+			ALTER DATABASE ${utilisoft.dbname}
+			SET read_committed_snapshot ON;
+			ALTER DATABASE ${utilisoft.dbname} SET
+			MULTI_USER;
+		</sql>
+	</changeSet>
+
+	<changeSet author="parkers" dbms="mssql"
+		id="mssqlSnapshotIsolationCommit" runAlways="true">
+		<preConditions onFail="WARN">
+			<sqlCheck expectedResult="0">SELECT snapshot_isolation_state
+				FROM sys.databases WHERE name='${utilisoft.dbname}';
+			</sqlCheck>
+		</preConditions>
+		<sql endDelimiter=";">
+			ALTER DATABASE ${utilisoft.dbname} SET
+			allow_snapshot_isolation ON;
+		</sql>
+	</changeSet>
+
+	<changeSet author="parkers (generated)" id="1503327358685-1"
+		failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="hibernate_sequence" />
+			</not>
+		</preConditions>
+		<createSequence sequenceName="hibernate_sequence"
+			startValue="1" incrementBy="1" />
+	</changeSet>
+
+	<!--<include file="db/changelog/changelog-1.0.0-test148.xml" />
+	<include file="db/changelog/standingdata-1.0.0-test148.xml" />-->
+
+</databaseChangeLog>
