@@ -17,7 +17,7 @@
 	<property name="nextSequence" value="hibernate_sequence.NEXTVAL"
 		dbms="h2" />
 
-	<changeSet author="parkers" dbms="mssql" id="mssqlReadCommit"
+	<changeSet author="kosta" dbms="mssql" id="mssqlReadCommit"
 		runAlways="true">
 		<preConditions onFail="WARN">
 			<sqlCheck expectedResult="0">SELECT
@@ -36,7 +36,7 @@
 		</sql>
 	</changeSet>
 
-	<changeSet author="parkers" dbms="mssql"
+	<changeSet author="kosta" dbms="mssql"
 		id="mssqlSnapshotIsolationCommit" runAlways="true">
 		<preConditions onFail="WARN">
 			<sqlCheck expectedResult="0">SELECT snapshot_isolation_state
@@ -49,7 +49,7 @@
 		</sql>
 	</changeSet>
 
-	<changeSet author="parkers (generated)" id="1503327358685-1"
+	<changeSet author="kosta" id="1503327358685-1"
 		failOnError="true">
 		<preConditions onFail="MARK_RAN">
 			<not>
@@ -60,7 +60,9 @@
 			startValue="1" incrementBy="1" />
 	</changeSet>
 
-	<!--<include file="db/changelog/changelog-1.0.0-test148.xml" />
-	<include file="db/changelog/standingdata-1.0.0-test148.xml" />-->
-
+	<!-- Base scripts - DO NOT CHANGE -->
+	<include file="db/changelog/changelog-0.0.1.xml" />
+	<include file="db/changelog/standingdata-1.0.0.xml" />
+	<!-- Base scripts - DO NOT CHANGE -->
+	
 </databaseChangeLog>

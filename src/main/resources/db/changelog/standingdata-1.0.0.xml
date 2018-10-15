@@ -1,0 +1,33 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="dev" id="1.0.0-standing-data">
+    <insert tableName="USER">
+        <column name="PK" valueComputed="${nextSequence}" />
+        <column name="CREATED" valueDate="${now}" />
+        <column name="LAST_UPDATED" valueDate="${now}" />
+        <column name="VERSION" valueNumeric="0" />
+        <column name="LOCKED" valueBoolean="false" />
+        <!-- $2a$10$1ZJNa8i2iHOS0m5IGT6MD.tMuxaGPF8t6n5pdPs0PSNKPJlP7.uXG -->
+        <column name="PASSWORD"
+            value="$2a$10$1ZJNa8i2iHOS0m5IGT6MD.tMuxaGPF8t6n5pdPs0PSNKPJlP7.uXG" />
+        <column name="EMAIL" value="kosta@formfill.com" />
+        <column name="FIRST_NAME" value="Kost" />
+        <column name="ROLE"  value="ADMIN" />
+    </insert>	             
+
+    <insert tableName="USER">
+        <column name="PK" valueComputed="${nextSequence}" />
+        <column name="CREATED" valueDate="${now}" />
+        <column name="LAST_UPDATED" valueDate="${now}" />
+        <column name="VERSION" valueNumeric="0" />
+        <column name="LOCKED" valueBoolean="false" />
+        <column name="PASSWORD"
+        value="$2a$10$sv7.MBT7UXTiBX.EyF4FaulqO1ewgS6enx0tXZyu8a8RLUN4k.u5G" />
+        <column name="EMAIL" value="bobchristie@btinternet.com" />
+        <column name="FIRST_NAME" value="Test" />
+        <column name="ROLE"  value="USER" />
+    </insert>                  
+	</changeSet>
+</databaseChangeLog>
