@@ -149,8 +149,8 @@
         <form method="post" action="login">
           <!--<h2 class="login__header">Sign in</h2>-->
           <div class="login__layout">
-            <vaadin-text-field id="username" name="username" label="Email" value="kosta@formfill.com" autofocus required></vaadin-text-field>
-            <vaadin-password-field id="password" name="password" label="Password" required on-keydown="_onPasswordKeydown" value="monkeyB1llz!"></vaadin-password-field>
+            <vaadin-text-field id="username" name="username" label="Email" autofocus required></vaadin-text-field>
+            <vaadin-password-field id="password" name="password" label="Password" required on-keydown="_onPasswordKeydown"></vaadin-password-field>
             <vaadin-button class="login__button" on-tap="login" theme="primary">
               Sign In
             </vaadin-button>

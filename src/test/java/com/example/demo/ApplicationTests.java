@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.food;
 
 import org.junit.Ignore;
 import org.junit.Test;

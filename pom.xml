@@ -200,7 +200,7 @@
              <changeLogFile>src/main/resources/db/changelog/changelog-master.xml</changeLogFile>
              <diffChangeLogFile>src/main/resources/db/changelog/changelog-${human.version}.xml</diffChangeLogFile>
              <driver>org.h2.Driver</driver>
-             <referenceUrl>hibernate:spring:com.example.demo.backend.domain?dialect=${h2.dialect}&amp;hibernate.enhanced_id=true</referenceUrl>
+             <referenceUrl>hibernate:spring:com.example.food.backend.domain?dialect=${h2.dialect}&amp;hibernate.enhanced_id=true</referenceUrl>
              <url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</url>
              <username>sa</username>
              <password />
