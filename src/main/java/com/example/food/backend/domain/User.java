@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "FOOD_USER")
 public class User extends AbstractEntity {
 
   private static final long serialVersionUID = 1L;

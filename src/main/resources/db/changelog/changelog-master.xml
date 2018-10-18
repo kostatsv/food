@@ -10,15 +10,12 @@
 	<property name="now" value="sysdate" dbms="oracle" />
 	<property name="now" value="now()" dbms="postgresql,h2" />
 
-	<property name="nextSequence" value="next value for hibernate_sequence"
-		dbms="mssql" />
-	<property name="nextSequence" value="hibernate_sequence.nextval"
-		dbms="oracle" />
-	<property name="nextSequence" value="hibernate_sequence.NEXTVAL"
-		dbms="h2" />
+	<property name="nextSequence" value="next value for hibernate_sequence" dbms="mssql" />
+	<property name="nextSequence" value="hibernate_sequence.nextval" dbms="oracle" />
+	<property name="nextSequence" value="hibernate_sequence.NEXTVAL" dbms="h2" />
+	<property name="nextSequence" value="nextval('hibernate_sequence')" dbms="postgresql" />
 
-	<changeSet author="kosta" dbms="mssql" id="mssqlReadCommit"
-		runAlways="true">
+	<changeSet author="kosta" dbms="mssql" id="mssqlReadCommit" runAlways="true">
 		<preConditions onFail="WARN">
 			<sqlCheck expectedResult="0">SELECT
 				is_read_committed_snapshot_on FROM sys.databases WHERE
@@ -49,15 +46,13 @@
 		</sql>
 	</changeSet>
 
-	<changeSet author="kosta" id="1503327358685-1"
-		failOnError="true">
+	<changeSet author="kosta" id="1503327358685-1" failOnError="true">
 		<preConditions onFail="MARK_RAN">
 			<not>
 				<sequenceExists sequenceName="hibernate_sequence" />
 			</not>
 		</preConditions>
-		<createSequence sequenceName="hibernate_sequence"
-			startValue="1" incrementBy="1" />
+		<createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="1" />
 	</changeSet>
 
 	<!-- Base scripts - DO NOT CHANGE -->
