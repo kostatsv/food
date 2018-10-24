@@ -1,4 +1,4 @@
-package com.example.food.ui.views.mainpage;
+package com.example.food.ui.views.receipts;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -3,6 +3,7 @@ package com.example.food.ui.crud;
 import com.example.food.app.HasLogger;
 import com.example.food.backend.domain.AbstractEntity;
 import com.example.food.ui.components.SearchBar;
+import com.example.food.ui.utils.TemplateUtil;
 import com.example.food.ui.views.EntityView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasText;
@@ -45,7 +46,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 	protected abstract BeanValidationBinder<E> getBinder();
 
-	// protected abstract SearchBar getSearchBar();
+	protected abstract SearchBar getSearchBar();
 
 	protected abstract Grid<E> getGrid();
 
@@ -84,16 +85,17 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 
 		// getForm().getButtons().addDeleteListener(e -> getPresenter().delete());
 
-		// getSearchBar().addActionClickListener(e -> getPresenter().createNew());
-//		getSearchBar()
-//				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
-//
-//		getSearchBar().setActionText("New " + entityName);
+		getSearchBar().addActionClickListener(e -> getPresenter().createNew());
+		getSearchBar()
+				.addFilterChangeListener(e -> getPresenter().filter(getSearchBar().getFilter()));
+
+		getSearchBar().setActionText("New " + entityName);
+
 		getBinder().addValueChangeListener(e -> getPresenter().onValueChange(isDirty()));
 	}
 
 	protected void navigateToEntity(String id) {
-		// getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
+		getUI().ifPresent(ui -> ui.navigate(TemplateUtil.generateLocation(getBasePage(), id)));
 	}
 
 	@Override

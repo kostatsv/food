@@ -1,4 +1,4 @@
-package com.example.food.ui.views.mainpage;
+package com.example.food.ui.views.receipts;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -7,6 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.example.food.backend.utils.EntityUtil;
+import com.example.food.ui.components.SearchBar;
+import com.example.food.ui.crud.CrudEntityPresenter;
+import com.example.food.ui.crud.CrudView;
+import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.templatemodel.TemplateModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.example.food.app.security.SecurityUtils;
@@ -27,13 +36,26 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Tag("receipts-view")
+@HtmlImport("src/views/receipts/receipts-view.html")
 @PageTitle(BakeryConst.TITLE_STOREFRONT)
 @Route(value = BakeryConst.PAGE_STOREFRONT)
-public class ReceiptsView extends VerticalLayout {
+public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 
   private static final long serialVersionUID = 1L;
 
+  @Autowired
+  ReceiptRepository receiptRepo;
+
+  @Id("grid")
   private final Grid<Receipt> grid;
+
+  @Id("search")
+  private SearchBar search;
+
+  private final CrudEntityPresenter<Receipt> presenter;
+
+  private final BeanValidationBinder<Receipt> binder = new BeanValidationBinder<>(Receipt.class);
+
   private final DatePicker calendar;
   private final TextField txtMonth;
   private final TextField txtTotalAmount;
@@ -41,12 +63,12 @@ public class ReceiptsView extends VerticalLayout {
   private final TextField txtAmountEach;
   private final Button addNewBtn;
   private final Button btnLogout;
-  private ReceiptEditor receiptEditor;
-  private ReceiptRepository receiptRepo;
 
-  public ReceiptsView(ReceiptRepository receiptRepo, ReceiptEditor editor) {
-    this.receiptRepo = receiptRepo;
-    this.receiptEditor = editor;
+  public ReceiptsView(CrudEntityPresenter<Receipt> presenter, ReceiptForm form) {
+    super(EntityUtil.getName(Receipt.class), form);
+    this.presenter = presenter;
+
+
     this.grid = new Grid<>();
     this.addNewBtn = new Button("New receipt", VaadinIcon.PLUS.create());
     
@@ -73,8 +95,6 @@ public class ReceiptsView extends VerticalLayout {
     this.txtAmountEach.setReadOnly(true);
     this.txtAmountEach.setLabel("Each");
     
-    setSpacing(true);
-
     // build layout
     HorizontalLayout actions;
     if (SecurityUtils.isAdmin()) {
@@ -83,7 +103,7 @@ public class ReceiptsView extends VerticalLayout {
     else {
       actions = new HorizontalLayout(calendar, txtMonth, btnLogout);
     }
-    add(actions, grid, txtTotalAmount, txtPersonalExpenses, txtAmountEach, receiptEditor);
+    // add(actions, grid, txtTotalAmount, txtPersonalExpenses, txtAmountEach, receiptEditor);
 
     grid.setHeight("300px");
     // grid.setWidth("800px");
@@ -103,17 +123,17 @@ public class ReceiptsView extends VerticalLayout {
     if(SecurityUtils.isAdmin()) {
       // Connect selected Customer to editor or hide if none is selected
       grid.asSingleSelect().addValueChangeListener(e -> {
-        receiptEditor.editReceipt(e.getValue());
+        //receiptEditor.editReceipt(e.getValue());
       });
     }
 
     // Instantiate and edit new Customer the new button is clicked
-    addNewBtn.addClickListener(e -> receiptEditor.editReceipt(new Receipt(LocalDate.now(), new BigDecimal(0))));
+    //addNewBtn.addClickListener(e -> receiptEditor.editReceipt(new Receipt(LocalDate.now(), new BigDecimal(0))));
 
-    editor.setChangeHandler(() -> {
-      editor.setVisible(false);
-      listReceipts(calendar.getValue());
-    });
+//    editor.setChangeHandler(() -> {
+//      editor.setVisible(false);
+//      listReceipts(calendar.getValue());
+//    });
 
     calendar.setValue(LocalDate.now());
     calendar.addValueChangeListener(e -> {
@@ -157,4 +177,28 @@ public class ReceiptsView extends VerticalLayout {
     this.txtPersonalExpenses.setValue(sumPersonalExpenses.toString());
   }
 
+  @Override
+  protected CrudEntityPresenter<Receipt> getPresenter() {
+    return null;
+  }
+
+  @Override
+  protected String getBasePage() {
+    return null;
+  }
+
+  @Override
+  protected BeanValidationBinder<Receipt> getBinder() {
+    return null;
+  }
+
+  @Override
+  protected SearchBar getSearchBar() {
+    return null;
+  }
+
+  @Override
+  protected Grid<Receipt> getGrid() {
+    return null;
+  }
 }

@@ -6,6 +6,7 @@ import com.example.food.backend.Role;
 import com.example.food.backend.domain.User;
 import com.example.food.backend.utils.EntityUtil;
 import com.example.food.ui.MainView;
+import com.example.food.ui.components.SearchBar;
 import com.example.food.ui.crud.CrudEntityPresenter;
 import com.example.food.ui.crud.CrudView;
 import com.example.food.ui.utils.BakeryConst;
@@ -28,8 +29,8 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 @Secured(Role.ADMIN)
 public class UsersView extends CrudView<User, TemplateModel> {
 
-	//@Id("search")
-	//private SearchBar search;
+	@Id("search")
+	private SearchBar search;
 
 	@Id("grid")
 	private Grid<User> grid;
@@ -70,10 +71,10 @@ public class UsersView extends CrudView<User, TemplateModel> {
 		return PAGE_USERS;
 	}
 
-	//@Override
-	//public SearchBar getSearchBar() {
-	//	return search;
-	//}
+	@Override
+	public SearchBar getSearchBar() {
+		return search;
+	}
 
 	@Override
 	protected BeanValidationBinder<User> getBinder() {
