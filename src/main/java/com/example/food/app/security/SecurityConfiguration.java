@@ -99,8 +99,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// Register the success handler that redirects users to the page they last tried
 				// to access
 				.successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
-				.successForwardUrl("/" + BakeryConst.PAGE_STOREFRONT)
-				.defaultSuccessUrl("/" + BakeryConst.PAGE_STOREFRONT)
+				.successForwardUrl("/" + BakeryConst.PAGE_RECEIPTS)
+				.defaultSuccessUrl("/" + BakeryConst.PAGE_RECEIPTS)
 
 				// Configure logout
 				.and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);

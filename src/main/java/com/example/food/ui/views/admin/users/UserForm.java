@@ -1,5 +1,6 @@
 package com.example.food.ui.views.admin.users;
 
+import com.example.food.ui.components.FormButtonsBar;
 import com.example.food.ui.crud.CrudView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -32,8 +33,8 @@ public class UserForm extends PolymerTemplate<TemplateModel> implements CrudView
 	@Id("title")
 	private H3 title;
 
-	//@Id("buttons")
-	//private FormButtonsBar buttons;
+	@Id("buttons")
+	private FormButtonsBar buttons;
 
 	@Id("first")
 	private TextField first;
@@ -78,10 +79,10 @@ public class UserForm extends PolymerTemplate<TemplateModel> implements CrudView
 				});
 	}
 
-	//@Override
-//	public FormButtonsBar getButtons() {
-//		return buttons;
-//	}
+	@Override
+	public FormButtonsBar getButtons() {
+		return buttons;
+	}
 
 	@Override
 	public HasText getTitle() {

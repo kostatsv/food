@@ -2,6 +2,7 @@ package com.example.food.ui.crud;
 
 import com.example.food.app.HasLogger;
 import com.example.food.backend.domain.AbstractEntity;
+import com.example.food.ui.components.FormButtonsBar;
 import com.example.food.ui.components.SearchBar;
 import com.example.food.ui.utils.TemplateUtil;
 import com.example.food.ui.views.EntityView;
@@ -25,7 +26,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	private static final long serialVersionUID = 1L;
 
   public interface CrudForm<E> {
-		// FormButtonsBar getButtons();
+		FormButtonsBar getButtons();
 
 		HasText getTitle();
 
@@ -69,13 +70,13 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 	public void setupEventListeners() {
 		getGrid().addSelectionListener(e -> {
 			e.getFirstSelectedItem().ifPresent(entity -> {
-				// navigateToEntity(entity.getId().toString());
+				navigateToEntity(entity.getPk().toString());
 				getGrid().deselectAll();
 			});
 		});
 
-		// getForm().getButtons().addSaveListener(e -> getPresenter().save());
-		// getForm().getButtons().addCancelListener(e -> getPresenter().cancel());
+		getForm().getButtons().addSaveListener(e -> getPresenter().save());
+		getForm().getButtons().addCancelListener(e -> getPresenter().cancel());
 
 		getDialog().getElement().addEventListener("opened-changed", e -> {
 			if (!getDialog().isOpened()) {
@@ -83,7 +84,7 @@ public abstract class CrudView<E extends AbstractEntity, T extends TemplateModel
 			}
 		});
 
-		// getForm().getButtons().addDeleteListener(e -> getPresenter().delete());
+		getForm().getButtons().addDeleteListener(e -> getPresenter().delete());
 
 		getSearchBar().addActionClickListener(e -> getPresenter().createNew());
 		getSearchBar()

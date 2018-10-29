@@ -46,8 +46,8 @@ public class CrudEntityPresenter<T extends AbstractEntity> extends EntityPresent
 
 	private T open(T entity) {
 		getView().getBinder().readBean(entity);
-		// getView().getForm().getButtons().setSaveDisabled(true);
-		// getView().getForm().getButtons().setDeleteDisabled(isNew());
+		getView().getForm().getButtons().setSaveDisabled(true);
+		getView().getForm().getButtons().setDeleteDisabled(isNew());
 		getView().updateTitle(isNew());
 		getView().openDialog();
 		return entity;
@@ -77,7 +77,6 @@ public class CrudEntityPresenter<T extends AbstractEntity> extends EntityPresent
 	}
 
 	public void onValueChange(boolean isDirty) {
-
-		// getView().getForm().getButtons().setSaveDisabled(!isDirty);
+		getView().getForm().getButtons().setSaveDisabled(!isDirty);
 	}
 }

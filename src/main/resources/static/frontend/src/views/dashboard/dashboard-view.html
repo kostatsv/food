@@ -1,8 +1,8 @@
 <link rel="import" href="../../../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../../../bower_components/vaadin-grid/src/vaadin-grid.html">
 
-<link rel="import" href="../../../components/search-bar.html">
-<link rel="import" href="../../../components/utils-mixin.html">
+<link rel="import" href="../../components/search-bar.html">
+<link rel="import" href="../../components/utils-mixin.html">
 
 <link rel="import" href="../../../../styles/shared-styles.html">
 
@@ -16,7 +16,11 @@
       }
     </style>
 
-    <h3 id="month">test</h3>
+    <div class="container" style="text-align: center;">
+      <h3><a id="month" href="/receipts" style="color: #00b4f0;text-transform: uppercase;"></a></h3>
+      <p><h3 id="totalAmount"></h3></p>
+      <p>Each<h3 id="amountEach"></h3></p>
+    </div>
 
   </template>
 
@@ -31,17 +35,17 @@
 
         // This method is overridden to measure the page load performance and can be safely removed
         // if there is no need for that
-        const grid = this.$.grid;
+        // const grid = this.$.grid;
         let partsLoaded = 0;
         const listener = () => {
           if (++partsLoaded === 2 && window.performance.mark) {
             // the 'loading-changed' event is fired separately for the headers (first)
             // and for the content (second). Waiting for the second time
-            window.performance.mark('bakery-page-loaded');
-            grid.removeEventListener('loading-changed', listener);
+            // window.performance.mark('bakery-page-loaded');
+            // grid.removeEventListener('loading-changed', listener);
           }
         };
-        grid.addEventListener('loading-changed', listener);
+        // grid.addEventListener('loading-changed', listener);
       }
     }
 

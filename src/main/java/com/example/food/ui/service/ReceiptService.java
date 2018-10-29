@@ -9,7 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -73,4 +77,12 @@ public class ReceiptService implements FilterableCrudService<Receipt> {
 		return new Receipt();
 	}
 
+	public List<Receipt> getAllReceipts() {
+		return receiptRepo.findAll();
+	}
+
+	public List<Receipt> getReceipts(LocalDate filterDate) {
+		return receiptRepo.findAllByReceiptDateBetween(filterDate.withDayOfMonth(1),
+							filterDate.withDayOfMonth(filterDate.lengthOfMonth()));
+	}
 }

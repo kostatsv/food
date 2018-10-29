@@ -24,7 +24,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 
 @Tag("users-view")
 @HtmlImport("src/views/admin/users/users-view.html")
-@Route(value = PAGE_USERS)
+@Route(value = PAGE_USERS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_USERS)
 @Secured(Role.ADMIN)
 public class UsersView extends CrudView<User, TemplateModel> {

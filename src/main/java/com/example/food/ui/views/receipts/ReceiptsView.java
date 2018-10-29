@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.Locale;
 
 import com.example.food.backend.utils.EntityUtil;
+import com.example.food.ui.MainView;
 import com.example.food.ui.components.SearchBar;
 import com.example.food.ui.crud.CrudEntityPresenter;
 import com.example.food.ui.crud.CrudView;
+import com.example.food.ui.service.ReceiptService;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.example.food.app.security.SecurityUtils;
 import com.example.food.backend.domain.Receipt;
-import com.example.food.backend.repositories.ReceiptRepository;
 import com.example.food.ui.utils.BakeryConst;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
@@ -28,7 +28,6 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.data.renderer.NumberRenderer;
@@ -38,13 +37,10 @@ import com.vaadin.flow.router.Route;
 @Tag("receipts-view")
 @HtmlImport("src/views/receipts/receipts-view.html")
 @PageTitle(BakeryConst.TITLE_STOREFRONT)
-@Route(value = BakeryConst.PAGE_STOREFRONT)
+@Route(value = BakeryConst.PAGE_RECEIPTS, layout = MainView.class)
 public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 
   private static final long serialVersionUID = 1L;
-
-  @Autowired
-  ReceiptRepository receiptRepo;
 
   @Id("grid")
   private final Grid<Receipt> grid;
@@ -56,6 +52,8 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 
   private final BeanValidationBinder<Receipt> binder = new BeanValidationBinder<>(Receipt.class);
 
+  private ReceiptService receiptService;
+
   private final DatePicker calendar;
   private final TextField txtMonth;
   private final TextField txtTotalAmount;
@@ -64,9 +62,10 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
   private final Button addNewBtn;
   private final Button btnLogout;
 
-  public ReceiptsView(CrudEntityPresenter<Receipt> presenter, ReceiptForm form) {
+  public ReceiptsView(CrudEntityPresenter<Receipt> presenter, ReceiptForm form, ReceiptService receiptService) {
     super(EntityUtil.getName(Receipt.class), form);
     this.presenter = presenter;
+    this.receiptService = receiptService;
 
 
     this.grid = new Grid<>();
@@ -153,14 +152,17 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
     List<Receipt> receipts = new ArrayList<>();
     if (StringUtils.isEmpty(filterDate)) {
       // grid.setItems(receiptRepo.findAll());
-      receipts = receiptRepo.findAll();
+      // receipts = receiptRepo.findAll();
+      receipts = receiptService.getAllReceipts();
     }
     else {
       // grid.setItems(receiptRepo.findAllByReceiptDateBetween(filterDate.withDayOfMonth(1),
       // filterDate.withDayOfMonth(filterDate.lengthOfMonth())));
 
-      receipts = receiptRepo.findAllByReceiptDateBetween(filterDate.withDayOfMonth(1),
-                                                         filterDate.withDayOfMonth(filterDate.lengthOfMonth()));
+//      receipts = receiptRepo.findAllByReceiptDateBetween(filterDate.withDayOfMonth(1),
+//                                                         filterDate.withDayOfMonth(filterDate.lengthOfMonth()));
+
+      receipts = receiptService.getReceipts(filterDate);
     }
 
     grid.setItems(receipts);

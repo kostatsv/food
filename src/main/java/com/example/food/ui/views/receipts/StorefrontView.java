@@ -30,7 +30,7 @@
 //
 //@Tag("storefront-view")
 //@HtmlImport("src/views/storefront/storefront-view.html")
-//@Route(value = BakeryConst.PAGE_STOREFRONT, layout = MainView.class)
+//@Route(value = BakeryConst.PAGE_RECEIPTS, layout = MainView.class)
 //@RouteAlias(value = BakeryConst.PAGE_STOREFRONT_EDIT, layout = MainView.class)
 //@RouteAlias(value = BakeryConst.PAGE_ROOT, layout = MainView.class)
 //@PageTitle(BakeryConst.TITLE_STOREFRONT)
@@ -69,7 +69,7 @@
 //				.withProperty("orderCard", OrderCard::create)
 //				.withProperty("header", order -> presenter.getHeaderByOrderId(order.getId()))
 //				.withEventHandler("cardClick",
-//						order -> UI.getCurrent().navigate(BakeryConst.PAGE_STOREFRONT + "/" + order.getId())));
+//						order -> UI.getCurrent().navigate(BakeryConst.PAGE_RECEIPTS + "/" + order.getId())));
 //
 //		getSearchBar().addFilterChangeListener(
 //				e -> presenter.filterChanged(getSearchBar().getFilter(), getSearchBar().isCheckboxChecked()));
@@ -110,7 +110,7 @@
 //	}
 //
 //	void navigateToMainView() {
-//		getUI().ifPresent(ui -> ui.navigate(BakeryConst.PAGE_STOREFRONT));
+//		getUI().ifPresent(ui -> ui.navigate(BakeryConst.PAGE_RECEIPTS));
 //	}
 //
 //	@Override

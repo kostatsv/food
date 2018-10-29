@@ -1,6 +1,7 @@
 package com.example.food.ui.views.receipts;
 
 import com.example.food.backend.domain.Receipt;
+import com.example.food.ui.components.FormButtonsBar;
 import com.example.food.ui.crud.CrudView;
 import com.vaadin.flow.component.HasText;
 import com.vaadin.flow.component.Tag;
@@ -24,6 +25,9 @@ import org.springframework.context.annotation.Scope;
 @SpringComponent
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ReceiptForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Receipt>{
+
+    @Id("buttons")
+    private FormButtonsBar buttons;
 
     @Id("receiptDate")
     private final DatePicker receiptDate = new DatePicker("Date");
@@ -64,5 +68,10 @@ public class ReceiptForm extends PolymerTemplate<TemplateModel> implements CrudV
                 .withValidator(new BeanValidator(Receipt.class, "personalExpenses"))
                 .withConverter(new StringToBigDecimalConverter("Incorrect value for amount field"))
                 .bind("personalExpenses");
+    }
+
+    @Override
+    public FormButtonsBar getButtons() {
+        return buttons;
     }
 }
