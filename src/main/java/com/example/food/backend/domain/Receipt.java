@@ -22,6 +22,9 @@ public class Receipt extends AbstractEntity {
   private String store;
 
   public Receipt() {
+    this.receiptDate = LocalDate.now();
+    this.amount = new BigDecimal(0);
+    this.personalExpenses = new BigDecimal(0);
   }
 
   public Receipt(LocalDate receiptDate, BigDecimal amount) {

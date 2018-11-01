@@ -17,72 +17,72 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 @HtmlImport("src/components/form-buttons-bar.html")
 public class FormButtonsBar extends PolymerTemplate<TemplateModel> {
 
-	private static final long serialVersionUID = 1L;
-	
-  @Id("save")
-	private Button save;
-	@Id("cancel")
-	private Button cancel;
-	@Id("delete")
-	private Button delete;
+    private static final long serialVersionUID = 1L;
 
-	public void setSaveText(String saveText) {
-		save.setText(saveText == null ? "" : saveText);
-	}
+    @Id("save")
+    private Button save;
+    @Id("cancel")
+    private Button cancel;
+    @Id("delete")
+    private Button delete;
 
-	public void setCancelText(String cancelText) {
-		cancel.setText(cancelText == null ? "" : cancelText);
-	}
+    public void setSaveText(String saveText) {
+        save.setText(saveText == null ? "" : saveText);
+    }
 
-	public void setDeleteText(String deleteText) {
-		delete.setText(deleteText == null ? "" : deleteText);
-	}
+    public void setCancelText(String cancelText) {
+        cancel.setText(cancelText == null ? "" : cancelText);
+    }
 
-	public void setSaveDisabled(boolean saveDisabled) {
-		save.setEnabled(!saveDisabled);
-	}
+    public void setDeleteText(String deleteText) {
+        delete.setText(deleteText == null ? "" : deleteText);
+    }
 
-	public void setCancelDisabled(boolean cancelDisabled) {
-		cancel.setEnabled(!cancelDisabled);
-	}
+    public void setSaveDisabled(boolean saveDisabled) {
+        save.setEnabled(!saveDisabled);
+    }
 
-	public void setDeleteDisabled(boolean deleteDisabled) {
-		delete.setEnabled(!deleteDisabled);
-	}
+    public void setCancelDisabled(boolean cancelDisabled) {
+        cancel.setEnabled(!cancelDisabled);
+    }
 
-	public static class SaveEvent extends ComponentEvent<FormButtonsBar> {
-		private static final long serialVersionUID = 1L;
+    public void setDeleteDisabled(boolean deleteDisabled) {
+        delete.setEnabled(!deleteDisabled);
+    }
 
-    public SaveEvent(FormButtonsBar source, boolean fromClient) {
-			super(source, fromClient);
-		}
-	}
+    public static class SaveEvent extends ComponentEvent<FormButtonsBar> {
+        private static final long serialVersionUID = 1L;
 
-	public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
-		return save.addClickListener(e -> listener.onComponentEvent(new SaveEvent(this, true)));
-	}
+        public SaveEvent(FormButtonsBar source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
 
-	public static class CancelEvent extends ComponentEvent<FormButtonsBar> {
-		private static final long serialVersionUID = 1L;
+    public Registration addSaveListener(ComponentEventListener<SaveEvent> listener) {
+        return save.addClickListener(e -> listener.onComponentEvent(new SaveEvent(this, true)));
+    }
 
-    public CancelEvent(FormButtonsBar source, boolean fromClient) {
-			super(source, fromClient);
-		}
-	}
+    public static class CancelEvent extends ComponentEvent<FormButtonsBar> {
+        private static final long serialVersionUID = 1L;
 
-	public Registration addCancelListener(ComponentEventListener<CancelEvent> listener) {
-		return cancel.addClickListener(e -> listener.onComponentEvent(new CancelEvent(this, true)));
-	}
+        public CancelEvent(FormButtonsBar source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
 
-	public static class DeleteEvent extends ComponentEvent<FormButtonsBar> {
-		private static final long serialVersionUID = 1L;
+    public Registration addCancelListener(ComponentEventListener<CancelEvent> listener) {
+        return cancel.addClickListener(e -> listener.onComponentEvent(new CancelEvent(this, true)));
+    }
 
-    public DeleteEvent(FormButtonsBar source, boolean fromClient) {
-			super(source, fromClient);
-		}
-	}
+    public static class DeleteEvent extends ComponentEvent<FormButtonsBar> {
+        private static final long serialVersionUID = 1L;
 
-	public Registration addDeleteListener(ComponentEventListener<DeleteEvent> listener) {
-		return delete.addClickListener(e -> listener.onComponentEvent(new DeleteEvent(this, true)));
-	}
+        public DeleteEvent(FormButtonsBar source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
+
+    public Registration addDeleteListener(ComponentEventListener<DeleteEvent> listener) {
+        return delete.addClickListener(e -> listener.onComponentEvent(new DeleteEvent(this, true)));
+    }
 }

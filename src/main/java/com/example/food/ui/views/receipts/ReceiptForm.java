@@ -8,6 +8,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
@@ -20,11 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
+import java.time.LocalDate;
+
 @Tag("receipt-form")
 @HtmlImport("src/views/receipts/receipt-form.html")
 @SpringComponent
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ReceiptForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Receipt>{
+public class ReceiptForm extends PolymerTemplate<TemplateModel> implements CrudView.CrudForm<Receipt> {
+
+    @Id("title")
+    private H3 title;
 
     @Id("buttons")
     private FormButtonsBar buttons;
@@ -42,11 +48,12 @@ public class ReceiptForm extends PolymerTemplate<TemplateModel> implements CrudV
     private final TextField personalExpenses = new TextField("Personal Expenses");
 
     @Autowired
-    public ReceiptForm() {}
+    public ReceiptForm() {
+    }
 
     @Override
     public HasText getTitle() {
-        return null;
+        return this.title;
     }
 
     @Override

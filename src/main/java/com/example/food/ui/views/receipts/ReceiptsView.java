@@ -54,33 +54,32 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 
   private ReceiptService receiptService;
 
-  private final DatePicker calendar;
-  private final TextField txtMonth;
+//  private final DatePicker calendar;
+//  private final TextField txtMonth;
   private final TextField txtTotalAmount;
   private final TextField txtPersonalExpenses;
   private final TextField txtAmountEach;
-  private final Button addNewBtn;
-  private final Button btnLogout;
+//  private final Button addNewBtn;
+//  private final Button btnLogout;
 
   public ReceiptsView(CrudEntityPresenter<Receipt> presenter, ReceiptForm form, ReceiptService receiptService) {
     super(EntityUtil.getName(Receipt.class), form);
     this.presenter = presenter;
     this.receiptService = receiptService;
 
-
     this.grid = new Grid<>();
-    this.addNewBtn = new Button("New receipt", VaadinIcon.PLUS.create());
+//    this.addNewBtn = new Button("New receipt", VaadinIcon.PLUS.create());
     
-    this.btnLogout = new Button("logout", VaadinIcon.EXIT.create(), e -> {
-      getUI().get().getSession().close();
-      getUI().get().getPage().executeJavaScript("window.location.href='"+ BakeryConst.PAGE_LOGIN +"'");
-    });
+//    this.btnLogout = new Button("logout", VaadinIcon.EXIT.create(), e -> {
+//      getUI().get().getSession().close();
+//      getUI().get().getPage().executeJavaScript("window.location.href='"+ BakeryConst.PAGE_LOGIN +"'");
+//    });
     
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMMM yyyy");
-    this.calendar = new DatePicker();
-    this.txtMonth = new TextField();
-    this.txtMonth.setReadOnly(true);
-    this.txtMonth.setValue(LocalDate.now().format(dtf));
+//    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMMM yyyy");
+//    this.calendar = new DatePicker();
+//    this.txtMonth = new TextField();
+//    this.txtMonth.setReadOnly(true);
+//    this.txtMonth.setValue(LocalDate.now().format(dtf));
 
     this.txtTotalAmount = new TextField();
     this.txtTotalAmount.setReadOnly(true);
@@ -95,13 +94,13 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
     this.txtAmountEach.setLabel("Each");
     
     // build layout
-    HorizontalLayout actions;
-    if (SecurityUtils.isAdmin()) {
-      actions = new HorizontalLayout(calendar, txtMonth, addNewBtn, btnLogout);
-    }
-    else {
-      actions = new HorizontalLayout(calendar, txtMonth, btnLogout);
-    }
+//    HorizontalLayout actions;
+//    if (SecurityUtils.isAdmin()) {
+//      actions = new HorizontalLayout(calendar, txtMonth, addNewBtn, btnLogout);
+//    }
+//    else {
+//      actions = new HorizontalLayout(calendar, txtMonth, btnLogout);
+//    }
     // add(actions, grid, txtTotalAmount, txtPersonalExpenses, txtAmountEach, receiptEditor);
 
     grid.setHeight("300px");
@@ -119,12 +118,12 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
     grid.addColumn(new NumberRenderer<>(Receipt::getPersonalExpenses, "£%(,.2f",
             Locale.UK, "£0.00")).setHeader("Personal Expenses").setWidth("200px");
 
-    if(SecurityUtils.isAdmin()) {
-      // Connect selected Customer to editor or hide if none is selected
-      grid.asSingleSelect().addValueChangeListener(e -> {
-        //receiptEditor.editReceipt(e.getValue());
-      });
-    }
+//    if(SecurityUtils.isAdmin()) {
+//      // Connect selected Customer to editor or hide if none is selected
+//      grid.asSingleSelect().addValueChangeListener(e -> {
+//        //receiptEditor.editReceipt(e.getValue());
+//      });
+//    }
 
     // Instantiate and edit new Customer the new button is clicked
     //addNewBtn.addClickListener(e -> receiptEditor.editReceipt(new Receipt(LocalDate.now(), new BigDecimal(0))));
@@ -134,17 +133,22 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 //      listReceipts(calendar.getValue());
 //    });
 
-    calendar.setValue(LocalDate.now());
-    calendar.addValueChangeListener(e -> {
-      if (e.getValue() != null) {
-        txtMonth.setValue(e.getValue().format(dtf));
-        listReceipts(e.getValue());
-      }
-      else {
-        txtMonth.clear();
-      }
-    });
+//    calendar.setValue(LocalDate.now());
+//    calendar.addValueChangeListener(e -> {
+//      if (e.getValue() != null) {
+//        txtMonth.setValue(e.getValue().format(dtf));
+//        listReceipts(e.getValue());
+//      }
+//      else {
+//        txtMonth.clear();
+//      }
+//    });
 
+    form.setBinder(binder);
+
+    setupEventListeners();
+//    setupGrid();
+    presenter.setView(this);
     listReceipts(LocalDate.now());
   }
 
@@ -181,26 +185,26 @@ public class ReceiptsView extends CrudView<Receipt, TemplateModel> {
 
   @Override
   protected CrudEntityPresenter<Receipt> getPresenter() {
-    return null;
+    return this.presenter;
   }
 
   @Override
   protected String getBasePage() {
-    return null;
+    return BakeryConst.PAGE_RECEIPTS;
   }
 
   @Override
   protected BeanValidationBinder<Receipt> getBinder() {
-    return null;
+    return this.binder;
   }
 
   @Override
   protected SearchBar getSearchBar() {
-    return null;
+    return this.search;
   }
 
   @Override
   protected Grid<Receipt> getGrid() {
-    return null;
+    return this.grid;
   }
 }
