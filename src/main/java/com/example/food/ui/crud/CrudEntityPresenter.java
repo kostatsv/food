@@ -1,6 +1,7 @@
 package com.example.food.ui.crud;
 
 import com.example.food.backend.domain.AbstractEntity;
+import com.example.food.backend.domain.Receipt;
 import com.example.food.backend.domain.User;
 import com.example.food.ui.service.FilterableCrudService;
 import org.vaadin.artur.spring.dataprovider.FilterablePageableDataProvider;
@@ -12,6 +13,12 @@ public class CrudEntityPresenter<T extends AbstractEntity> extends EntityPresent
 
 	public CrudEntityPresenter(FilterableCrudService<T> crudService, User currentUser) {
 		super(crudService, currentUser);
+
+		filteredDataProvider = new CrudEntityDataProvider<>(crudService);
+	}
+
+	public CrudEntityPresenter(FilterableCrudService<T> crudService, Receipt currentReceipt) {
+		super(crudService, currentReceipt);
 
 		filteredDataProvider = new CrudEntityDataProvider<>(crudService);
 	}

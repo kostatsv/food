@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 
 import com.example.food.app.HasLogger;
 import com.example.food.backend.domain.AbstractEntity;
+import com.example.food.backend.domain.Receipt;
 import com.example.food.backend.domain.User;
 import com.example.food.backend.utils.EntityUtil;
 import com.example.food.ui.service.CrudService;
@@ -26,6 +27,8 @@ public class EntityPresenter<T extends AbstractEntity, V extends EntityView<T>> 
 
 	private User currentUser;
 
+	private Receipt currentReceipt;
+
 	private V view;
 
 	private EntityPresenterState<T> state = new EntityPresenterState<T>();
@@ -33,6 +36,11 @@ public class EntityPresenter<T extends AbstractEntity, V extends EntityView<T>> 
 	public EntityPresenter(CrudService<T> crudService, User currentUser) {
 		this.crudService = crudService;
 		this.currentUser = currentUser;
+	}
+
+	public EntityPresenter(CrudService<T> crudService, Receipt currentReceipt) {
+		this.crudService = crudService;
+		this.currentReceipt = currentReceipt;
 	}
 
 	public void setView(V view) {
